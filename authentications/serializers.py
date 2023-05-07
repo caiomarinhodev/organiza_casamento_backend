@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from app.models import Noivo, Supplier, TypeUser, CustomUser
+from app.models import Noivo, Supplier, TypeUser, CustomUser, Event
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,6 +37,10 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'username': 'This field is required'})
         if 'password' not in validated_data:
             raise serializers.ValidationError({'password': 'This field is required'})
+        if 'first_name' not in validated_data:
+            raise serializers.ValidationError({'first_name': 'This field is required'})
+        if 'last_name' not in validated_data:
+            raise serializers.ValidationError({'last_name': 'This field is required'})
 
         # create user with validated data if type is noivo
         if validated_data['type'] == TypeUser.NOIVO:
@@ -47,7 +51,8 @@ class RegisterSerializer(serializers.ModelSerializer):
                                                    'last_name': validated_data['last_name']}
                                                 )
                 custom_user = CustomUser.objects.create(user=user, type=TypeUser.NOIVO)
-                Noivo.objects.create(custom_user=custom_user)
+                noivo = Noivo.objects.create(custom_user=custom_user)
+                Event.objects.create(groom=noivo, name='Casamento de ' + str(noivo.custom_user.user.first_name))
                 return user
             except Exception as e:
                 raise serializers.ValidationError({'detail': str(e)})

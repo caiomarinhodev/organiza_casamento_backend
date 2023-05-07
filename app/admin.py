@@ -19,7 +19,7 @@ class NoivoAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'date', 'groom', 'bride', 'size', 'style')
+    list_display = ('id', 'name', 'date', 'groom', 'bride', 'size', 'style', 'budget', 'guests')
     search_fields = ('name',)
     list_filter = ('size', 'style', 'date')
 
