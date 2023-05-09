@@ -76,7 +76,7 @@ class EventStyle(models.TextChoices):
 class Event(Timestamp):
     name = models.CharField(max_length=100, blank=True, null=True)
     date = models.DateField(blank=True, null=True)
-    groom = models.ForeignKey(Noivo, on_delete=models.CASCADE, related_name='groom', blank=True, null=True)
+    groom = models.ForeignKey(Noivo, on_delete=models.CASCADE, related_name='groom', blank=True, null=True, related_query_name='groom')
     bride = models.ForeignKey(Noivo, on_delete=models.CASCADE, related_name='bride', blank=True, null=True)
     size = models.CharField(max_length=100, choices=EventSize.choices, default=EventSize.MEDIUM_WEDDING)
     style = models.CharField(max_length=100, choices=EventStyle.choices, default=EventStyle.CLASSIC_TRADITIONAL)

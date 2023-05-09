@@ -3,7 +3,7 @@ from knox.models import AuthToken
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 
-from app.models import TypeUser
+from app.models import TypeUser, Event
 from app.serializers import NoivoSerializer, SupplierSerializer, CustomUserSerializer
 from authentications.serializers import UserSerializer, RegisterSerializer, LoginSerializer
 
@@ -40,6 +40,7 @@ class SignInAPI(generics.GenericAPIView):
             "type": user.profile.type,
             "profile_data": self.get_data_profile(user),
             "data_user": self.get_data_custom(user),
+            "event": Event.objects.filter(groom=user.profile.noivo).first().id if user.profile.type == TypeUser.NOIVO else None,
             "token": AuthToken.objects.create(user)[1]
         })
 
