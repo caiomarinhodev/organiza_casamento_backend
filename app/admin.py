@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser
+from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest
 
 
 @admin.register(CustomUser)
@@ -38,3 +38,10 @@ class SupplierServicePhotosAdmin(admin.ModelAdmin):
     search_fields = (
         'supplier__custom_user__user__first_name', 'supplier__custom_user__user__last_name',
         'supplier__custom_user__user__email')
+
+
+@admin.register(Guest)
+class GuestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'email', 'confirmed', 'phone', 'photo_url', 'has_dependents', 'dependents', 'event')
+    search_fields = ('name', 'email', 'phone', 'event__name')
+    list_filter = ('confirmed', 'has_dependents')

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser
+from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -40,3 +40,9 @@ class SupplierServicePhotosSerializer(serializers.ModelSerializer):
     class Meta:
         model = SupplierServicePhotos
         fields = '__all__'
+
+
+class GuestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guest
+        fields = ['id', 'name', 'email', 'confirmed', 'phone', 'photo_url', 'has_dependents', 'dependents', 'event']

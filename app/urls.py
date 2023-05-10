@@ -1,9 +1,14 @@
-from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
 
-from app.viewsets import EventDetailAPIView
+from app.viewsets.event import EventDetailAPIView
+from app.viewsets.guest import GuestViewSet, GuestByEventViewSet
 
 urlpatterns = []
+
+router = routers.DefaultRouter()
+router.register(r'guests', GuestViewSet)
+router.register(r'guests-by-event', GuestByEventViewSet)
 
 urlpatterns += [
     path('', include('rest_auth.urls')),
@@ -14,4 +19,5 @@ urlpatterns += [
 
 urlpatterns += [
     path('event/<int:pk>/', EventDetailAPIView.as_view(), name='event-detail'),
+    path('', include(router.urls)),
 ]

@@ -76,7 +76,8 @@ class EventStyle(models.TextChoices):
 class Event(Timestamp):
     name = models.CharField(max_length=100, blank=True, null=True)
     date = models.DateField(blank=True, null=True)
-    groom = models.ForeignKey(Noivo, on_delete=models.CASCADE, related_name='groom', blank=True, null=True, related_query_name='groom')
+    groom = models.ForeignKey(Noivo, on_delete=models.CASCADE, related_name='groom', blank=True, null=True,
+                              related_query_name='groom')
     bride = models.ForeignKey(Noivo, on_delete=models.CASCADE, related_name='bride', blank=True, null=True)
     size = models.CharField(max_length=100, choices=EventSize.choices, default=EventSize.MEDIUM_WEDDING)
     style = models.CharField(max_length=100, choices=EventStyle.choices, default=EventStyle.CLASSIC_TRADITIONAL)
@@ -132,3 +133,17 @@ class SupplierServicePhotos(models.Model):
 
     def __str__(self):
         return self.supplier.custom_user.user.first_name
+
+
+class Guest(Timestamp):
+    name = models.CharField(max_length=255)
+    photo_url = models.TextField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    confirmed = models.BooleanField(default=False)
+    has_dependents = models.BooleanField(default=False)
+    dependents = models.IntegerField(blank=True, null=True, default=0)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
