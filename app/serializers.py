@@ -46,3 +46,19 @@ class GuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guest
         fields = ['id', 'name', 'email', 'confirmed', 'phone', 'photo_url', 'has_dependents', 'dependents', 'event']
+
+
+class CustomUserRelatedSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = CustomUser
+        fields = '__all__'
+
+
+class NoivoRelatedSerializer(serializers.ModelSerializer):
+    custom_user = CustomUserRelatedSerializer()
+
+    class Meta:
+        model = Noivo
+        fields = '__all__'
