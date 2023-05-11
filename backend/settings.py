@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'authentications.apps.AppConfig',
     'django_rest_passwordreset',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -183,3 +184,13 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'jarvisbtcml@gmail.com'
 
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:4200')
+
+
+
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL', 'cloudinary://113285428392752:WIU52UMg6lglL_OmrH3Pe1Gbrzk@help-m-sician')
+CLOUDINARY_API_KEY = os.getenv('CLOUDINARY_API_KEY',
+                               '113285428392752')
+CLOUDINARY_API_SECRET = os.getenv('CLOUDINARY_API_SECRET',
+                                  'WIU52UMg6lglL_OmrH3Pe1Gbrzk')
+CLOUDINARY_CLOUD_NAME = os.getenv('CLOUDINARY_CLOUD_NAME',
+                                  'help-m-sician')

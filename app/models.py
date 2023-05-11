@@ -147,3 +147,16 @@ class Guest(Timestamp):
 
     def __str__(self):
         return self.name
+
+
+class Artifact(Timestamp):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    link_url = models.URLField(blank=True, null=True)
+    owner = models.ForeignKey(Noivo, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    public_id = models.CharField(max_length=255, blank=True, null=True)
+
+
+    def __str__(self):
+        return self.name

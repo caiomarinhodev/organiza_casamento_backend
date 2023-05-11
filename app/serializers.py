@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest
+from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -61,4 +61,10 @@ class NoivoRelatedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Noivo
+        fields = '__all__'
+
+
+class ArtifactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Artifact
         fields = '__all__'

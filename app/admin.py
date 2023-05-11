@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest
+from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact
 
 
 @admin.register(CustomUser)
@@ -45,3 +45,10 @@ class GuestAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'email', 'confirmed', 'phone', 'photo_url', 'has_dependents', 'dependents', 'event')
     search_fields = ('name', 'email', 'phone', 'event__name')
     list_filter = ('confirmed', 'has_dependents')
+
+
+@admin.register(Artifact)
+class ArtifactAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'public_id', 'link_url', 'owner', 'event', 'created_at')
+    search_fields = ('name', 'description', 'event__name', 'owner__name', 'public_id')
+    list_filter = ('event',)

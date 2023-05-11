@@ -1,3 +1,4 @@
+cloudinary
 dj-database-url
 Django==3.2.16
 django-allauth==0.51.0

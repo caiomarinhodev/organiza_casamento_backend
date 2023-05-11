@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
+from app.viewsets.artifact import ArtifactViewSet
 from app.viewsets.event import EventDetailAPIView
 from app.viewsets.guest import GuestViewSet, GuestByEventViewSet
 from app.viewsets.noivo import NoivoViewSet
@@ -11,6 +12,7 @@ router = routers.DefaultRouter()
 router.register(r'guests', GuestViewSet)
 router.register(r'guests-by-event', GuestByEventViewSet)
 router.register(r'noivo', NoivoViewSet, basename='noivo')
+router.register(r'artifacts', ArtifactViewSet)
 
 urlpatterns += [
     path('', include('rest_auth.urls')),
