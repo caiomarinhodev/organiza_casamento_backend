@@ -157,6 +157,27 @@ class Artifact(Timestamp):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     public_id = models.CharField(max_length=255, blank=True, null=True)
 
-
     def __str__(self):
         return self.name
+
+
+class PriorityChoices(models.TextChoices):
+    LOW = 'Baixo'
+    MEDIUM = 'Médio'
+    HIGH = 'Alto'
+
+
+class Task(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True, null=True)
+    title = models.CharField(max_length=255)
+    priority = models.CharField(choices=PriorityChoices.choices, default=PriorityChoices.MEDIUM, max_length=100)
+    recommended_date = models.CharField(max_length=255, blank=True, null=True)
+    due_date = models.DateField(null=True, blank=True)
+    is_completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+    def complete_task(self):
+        self.is_completed = True
+        self.save(update_fields=['is_completed'])

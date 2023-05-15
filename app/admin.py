@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact
+from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact, Task
 
 
 @admin.register(CustomUser)
@@ -52,3 +52,11 @@ class ArtifactAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'public_id', 'link_url', 'owner', 'event', 'created_at')
     search_fields = ('name', 'description', 'event__name', 'owner__name', 'public_id')
     list_filter = ('event',)
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'is_completed', 'event', 'title', 'priority', 'recommended_date', 'due_date')
+    search_fields = ('title', 'event__name')
+    list_filter = ('is_completed', 'priority', 'event')
+    

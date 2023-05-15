@@ -3,18 +3,16 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from app.tests.utils import create_pack_noivo_for_tests
+
 User = get_user_model()
 
 
 class TestRetrieveAuthenticatedUser(APITestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user(
-            username='testuser',
-            email='testuser@example.com',
-            password='testpass'
-        )
         self.url = reverse('user')
+        self.user, self.custom_user, self.noivo, self.evento = create_pack_noivo_for_tests()
 
     def test_retrieve_authenticated_user_requires_authentication(self):
         response = self.client.get(self.url)

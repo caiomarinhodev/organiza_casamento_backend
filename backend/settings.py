@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'corsheaders',
     'django_filters',
-    'app.apps.AppConfig',
+    'app.apps.AppOrganizaConfig',
     'authentications.apps.AppConfig',
     'django_rest_passwordreset',
     'cloudinary',

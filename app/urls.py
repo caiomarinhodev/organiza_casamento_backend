@@ -5,6 +5,7 @@ from app.viewsets.artifact import ArtifactViewSet
 from app.viewsets.event import EventDetailAPIView
 from app.viewsets.guest import GuestViewSet, GuestByEventViewSet
 from app.viewsets.noivo import NoivoViewSet
+from app.viewsets.task import TaskViewSet, TaskList
 
 urlpatterns = []
 
@@ -13,6 +14,7 @@ router.register(r'guests', GuestViewSet)
 router.register(r'guests-by-event', GuestByEventViewSet)
 router.register(r'noivo', NoivoViewSet, basename='noivo')
 router.register(r'artifacts', ArtifactViewSet)
+router.register(r'tasks', TaskViewSet)
 
 urlpatterns += [
     path('', include('rest_auth.urls')),
@@ -23,5 +25,6 @@ urlpatterns += [
 
 urlpatterns += [
     path('event/<int:pk>/', EventDetailAPIView.as_view(), name='event-detail'),
+    path('event/<int:event_id>/tasks/', TaskList.as_view(), name='task-list'),
     path('', include(router.urls)),
 ]
