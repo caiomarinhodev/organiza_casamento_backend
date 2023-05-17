@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lista de Convidados</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>Lista de Convidados</h1>
+<table>
+    <thead>
+    <tr>
+        <th>x</th>
+        <th>Nome</th>
+        <th>Foto</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Confirmado</th>
+        <th>Dependentes</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for guest in guests %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ guest.name }}</td>
+            <td><img src="{{ guest.photo_url }}" alt="{{ guest.name }}" width="100"></td>
+            <td>{{ guest.email }}</td>
+            <td>{{ guest.phone }}</td>
+            <td>
+                {% if guest.confirmed %}
+                    Sim
+                {% else %}
+                    Não
+                {% endif %}
+            </td>
+            <td>{{ guest.dependents }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

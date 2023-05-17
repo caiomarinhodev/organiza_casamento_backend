@@ -14,12 +14,15 @@ class ArtifactViewSet(viewsets.ModelViewSet):
     queryset = Artifact.objects.all().order_by('-created_at')
 
     def get_queryset(self):
-        filter = self.request.query_params.get('filter')
-        filters = json.loads(filter)['filters']
-        groom_id = filters.get('noivo_id', None)
-        queryset = super().get_queryset()
-        if groom_id is not None:
-            queryset = queryset.filter(owner__id=groom_id)
+        if 'filter' in self.request.query_params:
+            filter = self.request.query_params.get('filter')
+            filters = json.loads(filter)['filters']
+            groom_id = filters.get('noivo_id', None)
+            queryset = super().get_queryset()
+            if groom_id is not None:
+                queryset = queryset.filter(owner__id=groom_id)
+        else:
+            queryset = super().get_queryset()
         return queryset
 
     def create(self, request, *args, **kwargs):

@@ -5,6 +5,7 @@ from app.viewsets.artifact import ArtifactViewSet
 from app.viewsets.event import EventDetailAPIView
 from app.viewsets.guest import GuestViewSet, GuestByEventViewSet
 from app.viewsets.noivo import NoivoViewSet
+from app.viewsets.reports import event_report, guest_list
 from app.viewsets.task import TaskViewSet, TaskList
 
 urlpatterns = []
@@ -26,5 +27,7 @@ urlpatterns += [
 urlpatterns += [
     path('event/<int:pk>/', EventDetailAPIView.as_view(), name='event-detail'),
     path('event/<int:event_id>/tasks/', TaskList.as_view(), name='task-list'),
+    path('event/<int:event_id>/report/csv/', event_report, name='event-report'),
+    path('event/<int:event_id>/report/pdf/', guest_list, name='event-guest-report'),
     path('', include(router.urls)),
 ]
