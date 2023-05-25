@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact, Task
+from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact, Task, Message
 
 
 @admin.register(CustomUser)
@@ -59,4 +59,12 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'is_completed', 'event', 'title', 'priority', 'recommended_date', 'due_date')
     search_fields = ('title', 'event__name')
     list_filter = ('is_completed', 'priority', 'event')
-    
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sender', 'recipient', 'is_read', 'date_readed',)
+    search_fields = ('message', 'sender__user__username', 'recipient__user__username',
+                     'sender__user__first_name', 'recipient__user__first_name',
+                     'sender__user__last_name', 'recipient__user__last_name',)
+    list_filter = ('is_read',)

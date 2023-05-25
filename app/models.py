@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 class Timestamp(models.Model):
@@ -83,6 +84,11 @@ class Event(Timestamp):
     style = models.CharField(max_length=100, choices=EventStyle.choices, default=EventStyle.CLASSIC_TRADITIONAL)
     budget = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     guests = models.IntegerField(blank=True, null=True, default=100)
+    observation = models.TextField(blank=True, null=True)
+    color1 = models.CharField(max_length=100, blank=True, null=True)
+    color2 = models.CharField(max_length=100, blank=True, null=True)
+    color3 = models.CharField(max_length=100, blank=True, null=True)
+    color4 = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Evento'
@@ -181,3 +187,32 @@ class Task(models.Model):
     def complete_task(self):
         self.is_completed = True
         self.save(update_fields=['is_completed'])
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='sender',
+    )
+    recipient = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name='recipient',
+    )
+    content = models.TextField()
+    is_read = models.BooleanField(default=False)
+    date_readed = models.DateTimeField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Mensagem'
+        verbose_name_plural = 'Mensagens'
+
+    def __str__(self):
+        return f'Message from {self.sender.user.first_name} to {self.recipient.user.first_name}'
+
+    def read_message(self):
+        self.is_read = True
+        self.date_readed = timezone.now()
+        self.save(update_fields=['is_read', 'date_readed'])

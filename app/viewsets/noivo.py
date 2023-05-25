@@ -1,8 +1,9 @@
 from rest_framework import generics, permissions, viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from app.models import Noivo
-from app.serializers import NoivoSerializer, NoivoRelatedSerializer
+from app.models import Noivo, Message
+from app.serializers import NoivoSerializer, NoivoRelatedSerializer, MessageSerializer
 
 
 class NoivoListCreateAPIView(generics.ListCreateAPIView):
@@ -18,6 +19,13 @@ class NoivoDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class NoivoViewSet(viewsets.ModelViewSet):
     serializer_class = NoivoRelatedSerializer
+
+    @action(detail=True, methods=['get'])
+    def get_received_messages(self, request, pk=None):
+        noivo = self.get_object()
+        messages = Message.objects.filter(recipient=noivo.custom_user)
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data)
 
     def get_queryset(self):
         user = self.request.user

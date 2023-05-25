@@ -4,8 +4,10 @@ from rest_framework import routers
 from app.viewsets.artifact import ArtifactViewSet
 from app.viewsets.event import EventDetailAPIView
 from app.viewsets.guest import GuestViewSet, GuestByEventViewSet
+from app.viewsets.messages import MessageViewSet
 from app.viewsets.noivo import NoivoViewSet
 from app.viewsets.reports import event_report, guest_list
+from app.viewsets.supplier import SupplierViewSet
 from app.viewsets.task import TaskViewSet, TaskList
 
 urlpatterns = []
@@ -16,6 +18,11 @@ router.register(r'guests-by-event', GuestByEventViewSet)
 router.register(r'noivo', NoivoViewSet, basename='noivo')
 router.register(r'artifacts', ArtifactViewSet)
 router.register(r'tasks', TaskViewSet)
+router.register(r'suppliers', SupplierViewSet)
+router.register(r'messages', MessageViewSet)
+
+# '/noivos/{id}/get_received_messages/'
+# '/suppliers/{id}/get_received_messages/'
 
 urlpatterns += [
     path('', include('rest_auth.urls')),
