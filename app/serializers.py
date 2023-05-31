@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact, Task, Message
+from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact, Task, Message, Idea
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -79,4 +79,10 @@ class TaskSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
+        fields = '__all__'
+
+
+class IdeaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Idea
         fields = '__all__'

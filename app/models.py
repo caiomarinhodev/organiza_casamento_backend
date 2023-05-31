@@ -186,7 +186,8 @@ class Task(models.Model):
 
     def complete_task(self):
         self.is_completed = True
-        self.save(update_fields=['is_completed'])
+        self.due_date = timezone.now()
+        self.save(update_fields=['is_completed', 'due_date'])
 
 
 class Message(models.Model):
@@ -216,3 +217,9 @@ class Message(models.Model):
         self.is_read = True
         self.date_readed = timezone.now()
         self.save(update_fields=['is_read', 'date_readed'])
+
+
+class Idea(Timestamp):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    description = models.TextField()

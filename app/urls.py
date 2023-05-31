@@ -2,8 +2,9 @@ from django.urls import path, include
 from rest_framework import routers
 
 from app.viewsets.artifact import ArtifactViewSet
-from app.viewsets.event import EventDetailAPIView
+from app.viewsets.event import EventDetailAPIView, EventViewSet
 from app.viewsets.guest import GuestViewSet, GuestByEventViewSet
+from app.viewsets.idea import IdeaViewSet
 from app.viewsets.messages import MessageViewSet
 from app.viewsets.noivo import NoivoViewSet
 from app.viewsets.reports import event_report, guest_list
@@ -20,6 +21,8 @@ router.register(r'artifacts', ArtifactViewSet)
 router.register(r'tasks', TaskViewSet)
 router.register(r'suppliers', SupplierViewSet)
 router.register(r'messages', MessageViewSet)
+router.register(r'ideas', IdeaViewSet)
+router.register(r'events', EventViewSet)
 
 # '/noivos/{id}/get_received_messages/'
 # '/suppliers/{id}/get_received_messages/'
