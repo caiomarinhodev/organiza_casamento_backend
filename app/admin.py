@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact, Task, Message, Idea
+from .models import Noivo, Event, Supplier, SupplierServicePhotos, CustomUser, Guest, Artifact, Task, Message, Idea, \
+    Notification
 
 
 @admin.register(CustomUser)
@@ -42,9 +43,10 @@ class SupplierServicePhotosAdmin(admin.ModelAdmin):
 
 @admin.register(Guest)
 class GuestAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'email', 'confirmed', 'phone', 'photo_url', 'has_dependents', 'dependents', 'event')
+    list_display = (
+    'id', 'name', 'email', 'confirmed', 'is_received', 'phone', 'photo_url', 'has_dependents', 'dependents', 'event')
     search_fields = ('name', 'email', 'phone', 'event__name')
-    list_filter = ('confirmed', 'has_dependents')
+    list_filter = ('confirmed', 'has_dependents', 'is_received')
 
 
 @admin.register(Artifact)
@@ -74,3 +76,11 @@ class MessageAdmin(admin.ModelAdmin):
 class IdeaAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'description', 'event', 'created_at')
     search_fields = ('title', 'description', 'event__name',)
+
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'message', 'user', 'is_read', 'created_at')
+    search_fields = ('message', 'user__user__username', 'user__user__first_name',
+                     'user__user__last_name',)
+    list_filter = ('is_read',)

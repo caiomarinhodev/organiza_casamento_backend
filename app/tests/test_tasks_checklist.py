@@ -23,7 +23,7 @@ class TaskTests(TestCase):
         serializer = TaskSerializer(tasks, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 22)
+        self.assertEqual(len(response.data), 33)
 
     def test_update_task(self):
         # Teste para atualizar uma tarefa

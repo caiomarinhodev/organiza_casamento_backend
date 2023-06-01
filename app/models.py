@@ -150,6 +150,7 @@ class Guest(Timestamp):
     has_dependents = models.BooleanField(default=False)
     dependents = models.IntegerField(blank=True, null=True, default=0)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True, null=True)
+    is_received = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -223,3 +224,24 @@ class Idea(Timestamp):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+    date_readed = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-created_at', 'is_read']
+        verbose_name = 'Notificação'
+        verbose_name_plural = 'Notificações'
+
+    def __str__(self):
+        return self.message
+
+    def read_notification(self):
+        self.is_read = True
+        self.date_readed = timezone.now()
+        self.save(update_fields=['is_read', 'date_readed'])

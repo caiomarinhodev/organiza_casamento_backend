@@ -3,11 +3,12 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
 from app.models import Event, Idea
+from app.tests.utils import create_pack_noivo_for_tests
 
 
 class IdeaAPITestCase(APITestCase):
     def setUp(self):
-        self.event = Event.objects.create(name="Meu Casamento")
+        self.user, self.custom_user, self.noivo, self.event = create_pack_noivo_for_tests()
         self.idea = Idea.objects.create(event=self.event, title="Ideia 1", description="Descrição da Ideia 1")
 
     def test_list_ideas(self):

@@ -31,7 +31,7 @@ def create_pack_noivo_for_tests():
     evento = Event.objects.create(
         groom=noivo,
         name='Casamento do João',
-        date='2023-05-30',
+        date='2024-05-30',
         size=EventSize.MEDIUM_WEDDING,
         style=EventStyle.MODERN_MINIMALIST
     )
