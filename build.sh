@@ -12,4 +12,4 @@ python manage.py makemigrations
 python manage.py migrate
 #python manage.py starter --username admin --password Admin123! --noinput --email admin@gmail.com
 #python manage.py starter --username caio --password oficinag3 --noinput --email admin@gmail.com
-python manage.py initialize
+#python manage.py initialize
