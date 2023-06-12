@@ -53,7 +53,7 @@ def event_report(request, event_id):
 def guest_list(request, event_id):
     # Busca os convidados do evento pelo id
     event = Event.objects.get(id=event_id)
-    guests = Guest.objects.filter(event_id=event_id)
+    guests = Guest.objects.filter(event_id=event_id).order_by('-confirmed')
 
     # Define o nome do arquivo PDF
     filename = f"{event.name} - Lista de Convidados.pdf"

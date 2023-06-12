@@ -22,8 +22,6 @@
     <tr>
         <th>x</th>
         <th>Nome</th>
-        <th>Foto</th>
-        <th>Email</th>
         <th>Telefone</th>
         <th>Confirmado</th>
         <th>Dependentes</th>
@@ -34,8 +32,6 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ guest.name }}</td>
-            <td><img src="{{ guest.photo_url }}" alt="{{ guest.name }}" width="100"></td>
-            <td>{{ guest.email }}</td>
             <td>{{ guest.phone }}</td>
             <td>
                 {% if guest.confirmed %}
